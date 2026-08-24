@@ -1,15 +1,34 @@
+[CmdletBinding()]
+param(
+    [string]$Version = "0.3.9",
+    [string]$OutputDirectory = "",
+    [string]$OverlayApkPath = ""
+)
+
 $ErrorActionPreference = "Stop"
 
 $ProjectRoot = Split-Path -Parent $MyInvocation.MyCommand.Path
 $Python = Join-Path $ProjectRoot ".venv\Scripts\python.exe"
 $PerfettoTools = "D:\codex\perfetto-tools"
-$ReleaseRoot = Join-Path $ProjectRoot "release\AndroidPerfLab-0.3.9-win64"
+$ReleaseRoot = if ([string]::IsNullOrWhiteSpace($OutputDirectory)) {
+    Join-Path $ProjectRoot "release\AndroidPerfLab-$Version-win64"
+} else {
+    [System.IO.Path]::GetFullPath($OutputDirectory)
+}
+$OverlayApk = if ([string]::IsNullOrWhiteSpace($OverlayApkPath)) {
+    Join-Path $ProjectRoot "dist\PerfLabOverlay-v0.2.5-debug.apk"
+} else {
+    [System.IO.Path]::GetFullPath($OverlayApkPath)
+}
 $PyInstallerDist = Join-Path $ProjectRoot "build\pyinstaller-dist"
 $PyInstallerWork = Join-Path $ProjectRoot "build\pyinstaller-work"
 $SpecRoot = Join-Path $ProjectRoot "build\spec"
 
 if (-not (Test-Path -LiteralPath $Python)) {
     throw "Python environment is missing. Run .\setup.ps1 first."
+}
+if (-not (Test-Path -LiteralPath $OverlayApk -PathType Leaf)) {
+    throw "Overlay APK is missing: $OverlayApk"
 }
 if (Test-Path -LiteralPath $ReleaseRoot) {
     throw "Release directory already exists: $ReleaseRoot"
@@ -60,7 +79,7 @@ try {
     }
     Copy-Item -LiteralPath "$PerfettoTools\tools\trace_processor_shell\windows-amd64.exe" -Destination "$RuntimeRoot\trace_processor_shell.exe"
     Copy-Item -LiteralPath "$PerfettoTools\configs\02_jank_frame.pbtx" -Destination $ConfigTarget
-    Copy-Item -LiteralPath "$ProjectRoot\dist\PerfLabOverlay-v0.2.5-debug.apk" -Destination "$ApkTarget\PerfLabOverlay.apk"
+    Copy-Item -LiteralPath $OverlayApk -Destination "$ApkTarget\PerfLabOverlay.apk"
     Copy-Item -LiteralPath "$ProjectRoot\LICENSE" -Destination $ReleaseRoot
     Copy-Item -LiteralPath "$ProjectRoot\NOTICE" -Destination $ReleaseRoot
     Copy-Item -LiteralPath "$ProjectRoot\THIRD_PARTY_NOTICES.md" -Destination $ReleaseRoot
