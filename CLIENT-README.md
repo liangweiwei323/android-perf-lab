@@ -40,3 +40,14 @@ GPU占用当前使用经过真机验证的 Qualcomm KGSL `gpubusy` 忙碌/总窗
 - 杀毒软件提示未知发布者：当前测试版尚未进行 Windows 代码签名。
 
 此版本为本地客户端，采集数据不会自动上传。
+
+## 许可与归属
+
+Android Perf Lab 的原创源码采用 Apache License 2.0。客户端中包含或调用的第三方
+组件仍适用各自许可证。本目录中的 `LICENSE`、`NOTICE`、
+`THIRD_PARTY_NOTICES.md`、`PERFETTO-TOOLS-LICENSE.txt`、Android Platform-Tools
+`NOTICE.txt` 以及 `licenses/` 目录均属于分发材料，请勿删除。
+
+Android Perf Lab 是独立项目，与文档中提及的 Google、Android、Perfetto、PerfDog、
+SoloX、Qualcomm、Microsoft、Gracker 等项目或权利人不存在官方隶属或背书关系；相关
+名称仅用于兼容性和技术说明，商标归各自权利人所有。

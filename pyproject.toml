@@ -2,6 +2,8 @@
 name = "android-perf-lab"
 version = "0.3.9"
 description = "Local Android performance capture and deterministic reporting"
+license = "Apache-2.0"
+license-files = ["LICENSE", "NOTICE", "THIRD_PARTY_NOTICES.md"]
 requires-python = ">=3.11,<3.15"
 dependencies = [
   "fastapi>=0.116,<1",

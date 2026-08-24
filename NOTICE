@@ -1,0 +1,16 @@
+Android Perf Lab
+Copyright 2026 liangweiwei323 and Android Perf Lab contributors
+
+Licensed under the Apache License, Version 2.0. You may obtain a copy of the
+License in the LICENSE file distributed with this project or at
+https://www.apache.org/licenses/LICENSE-2.0
+
+Android Perf Lab interoperates with and may package separately licensed
+third-party software, including Perfetto Tools and Google Perfetto. Those
+components remain the property of their respective copyright holders and are
+not relicensed by this project. See THIRD_PARTY_NOTICES.md and the license
+files shipped with a binary distribution for details.
+
+Use of third-party project names and trademarks is solely for identification
+and interoperability. It does not imply sponsorship, endorsement, or
+affiliation.

@@ -66,3 +66,18 @@ cd .\android-overlay
 $env:JAVA_HOME = "D:\android\jbr"
 .\gradlew.bat assembleDebug
 ```
+
+## 开源许可与第三方声明
+
+除非文件中另有说明，Android Perf Lab 的原创源码采用
+[Apache License 2.0](LICENSE) 发布，版权归 `liangweiwei323` 和项目贡献者所有。
+
+本项目是独立项目，不是 SmartPerfetto 的二次开发，也不是 Google、Android、
+Perfetto、PerfDog、SoloX、Qualcomm、Microsoft 或 Gracker 的官方产品。本项目使用
+Google Perfetto 技术，并调用 Apache-2.0 许可的
+[Perfetto Tools](https://github.com/Gracker/perfetto-tools) 工具链。项目名称和商标仅用于
+说明兼容性、数据来源或对比口径，不代表任何赞助、认可或隶属关系。
+
+第三方组件仍归各自权利人所有，并适用各自的许可证。完整清单和再分发说明见
+[THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)。分发客户端或 APK 时请同时保留
+`LICENSE`、`NOTICE`、`THIRD_PARTY_NOTICES.md` 以及构建产物中的第三方许可文件。

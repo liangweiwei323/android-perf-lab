@@ -61,8 +61,29 @@ try {
     Copy-Item -LiteralPath "$PerfettoTools\tools\trace_processor_shell\windows-amd64.exe" -Destination "$RuntimeRoot\trace_processor_shell.exe"
     Copy-Item -LiteralPath "$PerfettoTools\configs\02_jank_frame.pbtx" -Destination $ConfigTarget
     Copy-Item -LiteralPath "$ProjectRoot\dist\PerfLabOverlay-v0.2.5-debug.apk" -Destination "$ApkTarget\PerfLabOverlay.apk"
+    Copy-Item -LiteralPath "$ProjectRoot\LICENSE" -Destination $ReleaseRoot
+    Copy-Item -LiteralPath "$ProjectRoot\NOTICE" -Destination $ReleaseRoot
+    Copy-Item -LiteralPath "$ProjectRoot\THIRD_PARTY_NOTICES.md" -Destination $ReleaseRoot
     Copy-Item -LiteralPath "$PerfettoTools\LICENSE" -Destination "$ReleaseRoot\PERFETTO-TOOLS-LICENSE.txt"
     Copy-Item -LiteralPath "$ProjectRoot\CLIENT-README.md" -Destination $ReleaseRoot
+
+    # Preserve license and notice files supplied by Python distributions that
+    # can be bundled into the portable client by PyInstaller.
+    $PythonLicenseRoot = Join-Path $ReleaseRoot "licenses\python"
+    $SitePackages = Join-Path $ProjectRoot ".venv\Lib\site-packages"
+    New-Item -ItemType Directory -Path $PythonLicenseRoot -Force | Out-Null
+    Get-ChildItem -LiteralPath $SitePackages -Directory -Filter "*.dist-info" | ForEach-Object {
+        $DistInfo = $_
+        $PackageLicenseRoot = Join-Path $PythonLicenseRoot $DistInfo.Name
+        Get-ChildItem -LiteralPath $DistInfo.FullName -File -Recurse | Where-Object {
+            $_.Name -match "^(LICENSE|LICENCE|COPYING|NOTICE|AUTHORS)(\..*)?$"
+        } | ForEach-Object {
+            $RelativeLicensePath = $_.FullName.Substring($DistInfo.FullName.Length).TrimStart("\")
+            $LicenseTarget = Join-Path $PackageLicenseRoot $RelativeLicensePath
+            New-Item -ItemType Directory -Path (Split-Path -Parent $LicenseTarget) -Force | Out-Null
+            Copy-Item -LiteralPath $_.FullName -Destination $LicenseTarget
+        }
+    }
 }
 finally {
     Pop-Location
