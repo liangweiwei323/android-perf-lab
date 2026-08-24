@@ -1,0 +1,37 @@
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Packaging and release output
+build/
+dist/
+release/
+*.spec
+
+# Runtime data and reports
+data/*
+!data/traces/
+!data/reports/
+data/traces/*
+data/reports/*
+!data/traces/.gitkeep
+!data/reports/.gitkeep
+webview-data/
+*.log
+
+# Android/Gradle local and generated files
+android-overlay/.gradle/
+android-overlay/**/build/
+android-overlay/local.properties
+*.jks
+*.keystore
+
+# Editors and operating systems
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db

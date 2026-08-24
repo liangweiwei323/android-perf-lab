@@ -1,0 +1,20 @@
+[project]
+name = "android-perf-lab"
+version = "0.3.9"
+description = "Local Android performance capture and deterministic reporting"
+requires-python = ">=3.11,<3.15"
+dependencies = [
+  "fastapi>=0.116,<1",
+  "uvicorn>=0.35,<1",
+  "perfetto==0.57.2",
+  "protobuf>=6,<8",
+  "pywebview>=5,<7",
+]
+
+[dependency-groups]
+build = [
+  "pyinstaller>=6,<7",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
